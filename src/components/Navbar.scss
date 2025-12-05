@@ -85,3 +85,11 @@
   background-color: rgb(244, 6, 18);
   opacity: 0.9;
 }
+
+.search-button {
+  display: inline-block; 
+  width: 24px;
+  height: 24px;
+  background: url('/icons/search.svg') no-repeat center;
+  background-size: contain;
+}

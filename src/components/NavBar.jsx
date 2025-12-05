@@ -17,6 +17,7 @@ function NavBar() {
         <Link to="/mylist" className="menu-item">내가 찜한 콘텐츠</Link>
       </div>
       <div className="auth-buttons">
+        <Link to="/search" className="search-button" />
         <Link to="/login" className="auth-button login">로그인</Link>
         <Link to="/signup" className="auth-button signup">회원가입</Link>
       </div>
