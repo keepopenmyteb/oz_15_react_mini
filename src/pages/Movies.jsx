@@ -1,17 +1,10 @@
 import React from 'react';
-import MovieCard from '../components/MovieCard';
-import dummy from '../data/movieListData.json'; 
+import MovieCard from '../components/MovieCard'; 
 
 function Movies() {
-  return (
-    <div className="movies">
-      <div className="movie-list">
-        {dummy.results.map(movie => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </div>
-    </div>
-  );
+    return (
+        <MovieCard /> 
+    );
 }
 
 export default Movies;
