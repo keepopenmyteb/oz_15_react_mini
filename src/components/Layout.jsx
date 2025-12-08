@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import NavBar from './NavBar'; 
+import NavBar from './NavBar';
 
 function Layout() {
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
     <div>
-      <NavBar /> 
+      <NavBar onSearch={setSearchQuery} />
       <div className="content">
-        <Outlet />
+        <Outlet context={{ searchQuery }} /> 
       </div>
     </div>
   );
