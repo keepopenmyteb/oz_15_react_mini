@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; 
-import './MovieCard.scss'; 
+import { Link, useOutletContext } from 'react-router-dom';
+import './MovieCard.scss';
 
 const fetchMoviesAPI = async () => {
   const response = await fetch(
@@ -9,7 +9,7 @@ const fetchMoviesAPI = async () => {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NzAzYjhjYzRmODU3Njc4YzYwZGM2NTllNWE1ZWY2MSIsIm5iZiI6MTc2NDgzNjcxOS4wNTcsInN1YiI6IjY5MzE0NTZmZTMyZjI4MjJmMDEzOTljYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pgha52Dn31f3sYRrNEkFTuympuppVoOYiSkWY6bmTrU`
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`
       }
     }
   );
@@ -18,10 +18,13 @@ const fetchMoviesAPI = async () => {
 
   return data.results.map(movie => ({
     ...movie,
-    posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+    posterUrl: movie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+      : '', 
     overview: movie.overview?.trim() || '제공되는 영화 정보가 없습니다'
   }));
 };
+
 
 const IndividualMovieCard = ({ movie }) => {
   const { title, posterUrl, vote_average, id } = movie;
@@ -29,14 +32,14 @@ const IndividualMovieCard = ({ movie }) => {
   return (
     <Link to={`/detail/${id}`} className="movie-card-link">
       <div className="movie-card">
-        <img 
+        <img
           src={posterUrl}
           alt={`${title} 포스터`}
           className="movie-poster"
         />
         <div className="movie-info">
           <h3 className="movie-title">{title}</h3>
-          <p className="movie-rating">평점: {vote_average.toFixed(1)}</p>
+         <p className="rating">평점: {movie.vote_average.toFixed(1)}</p>
         </div>
       </div>
     </Link>
@@ -44,9 +47,11 @@ const IndividualMovieCard = ({ movie }) => {
 };
 
 const MovieCard = () => {
+  const { searchQuery } = useOutletContext();  
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -55,12 +60,16 @@ const MovieCard = () => {
         setMovies(movieData);
       } catch (err) {
         setError('데이터 로드 실패');
-      } 
-        setLoading(false);
+      }
+      setLoading(false);
     };
-
     loadMovies();
   }, []);
+
+  
+  const filteredMovies = movies.filter(movie =>
+    (movie.title || '').toLowerCase().includes((searchQuery || '').toLowerCase()) 
+  ); 
 
   if (loading) return <h1 className="loading-message">로드 중...</h1>;
   if (error) return <div className="error-message">{error}</div>;
@@ -68,7 +77,7 @@ const MovieCard = () => {
   return (
     <div className="list-container">
       <div className="movie-list">
-        {movies.map(movie => (
+        {filteredMovies.map(movie => (
           <IndividualMovieCard key={movie.id} movie={movie} />
         ))}
       </div>
