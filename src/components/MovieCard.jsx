@@ -47,7 +47,7 @@ const IndividualMovieCard = ({ movie }) => {
 };
 
 const MovieCard = () => {
-  const { searchQuery } = useOutletContext(); 
+  const { searchQuery } = useOutletContext();  
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -68,8 +68,8 @@ const MovieCard = () => {
 
   
   const filteredMovies = movies.filter(movie =>
-    (movie.title || '').toLowerCase().includes((searchQuery || '').toLowerCase())
-  );
+    (movie.title || '').toLowerCase().includes((searchQuery || '').toLowerCase()) 
+  ); 
 
   if (loading) return <h1 className="loading-message">로드 중...</h1>;
   if (error) return <div className="error-message">{error}</div>;

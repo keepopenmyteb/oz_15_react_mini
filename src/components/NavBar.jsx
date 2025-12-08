@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './NavBar.scss';
+import './NavBarStyle.scss';
 
 function NavBar({ onSearch }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e) => {  
     const value = e.target.value;
     setSearchText(value);
     onSearch(value); 
