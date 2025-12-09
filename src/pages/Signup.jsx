@@ -49,7 +49,6 @@ function Signup() {
     if (!validate()) return;
 
     try {
-      // ✅ 객체 인수를 전달하도록 수정
       const userInfo = await signUp({
         email: form.email,
         password: form.password,
@@ -86,7 +85,6 @@ function Signup() {
         />
         {errors.email && <p className="error">{errors.email}</p>}
 
-        {/* ... (비밀번호, 비밀번호 확인 필드 생략) */}
         <InputField
           label="비밀번호"
           name="password"

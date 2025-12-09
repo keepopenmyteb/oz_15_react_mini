@@ -29,17 +29,13 @@ function Login({ setIsLoggedIn }) {
     }
 
     try {
-      // ⭐️ 핵심 수정: login 함수에 단일 객체를 인수로 전달합니다.
       const userInfo = await login({
         email: form.email,
         password: form.password
       });
-
-      // useEmailAuth 훅이 에러 없이 userInfo 객체를 반환하면 성공
       setIsLoggedIn(true);
       navigate("/");
     } catch (err) {
-      // login 함수에서 던져진 에러 처리
       alert("로그인 실패: " + err.message);
     }
   };
