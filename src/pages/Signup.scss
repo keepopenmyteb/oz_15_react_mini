@@ -1,0 +1,194 @@
+.netflix-background-wrapper { 
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1;
+  }
+}
+
+.auth-page {
+  max-width: 450px;
+  width: 100%;
+  margin: 0 auto; 
+  padding: 60px 68px 40px; 
+  background-color: rgb(0, 0, 0); 
+  border-radius: 4px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); 
+  position: relative;
+  z-index: 10; 
+
+  h2 {
+    text-align: left;
+    margin-bottom: 28px;
+    font-size: 32px;
+    font-weight: 700;
+    color: rgb(255, 255, 255); 
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .auth-btn {
+    margin-top: 40px;
+    padding: 16px;
+    background: rgb(229, 9, 20); 
+    border: none;
+    color: rgb(255, 255, 255); 
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    line-height: 1;
+
+    &:hover {
+      background: rgb(244, 6, 18);
+    }
+  }
+  
+  .error {
+    color: rgb(229, 9, 20);
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    text-align: left;
+  }
+
+  .secondary-btn {
+    margin-top: 15px;
+    padding: 16px;
+    background: rgb(68, 68, 68); 
+    border: none;
+    color: rgb(255, 255, 255); 
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .separator {
+    color: rgb(179, 179, 179);
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  .link-box {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    font-size: 13px;
+    color: rgb(179, 179, 179);
+
+    .save-info {
+      display: flex;
+      align-items: center;
+    }
+
+    .help-link {
+      color: rgb(179, 179, 179);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    
+    .signup-text {
+        margin-top: 30px; 
+        font-size: 16px;
+        color: rgb(179, 179, 179);
+        text-align: left;
+        display: block; 
+
+        a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        
+        .recaptcha-text {
+            display: block;
+            margin-top: 15px;
+            font-size: 13px;
+            color: rgb(140, 140, 140);
+            line-height: 1.4;
+            
+            a {
+                color: rgb(0, 113, 235); 
+            }
+        }
+    }
+  }
+}
+
+.input-field { 
+  margin-bottom: 16px; 
+  position: relative;
+
+  label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+  }
+
+  input {
+    width: 100%;
+    padding: 16px 20px;
+    background-color: rgb(51, 51, 51);
+    border: none;
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    line-height: 1;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgb(229, 9, 20); 
+    }
+  }
+  
+  input::placeholder {
+    color: rgb(140, 140, 140);
+  }
+}
+
+.link-box {
+  margin-top: 30px;
+  font-size: 14px;
+  color: rgb(179, 179, 179);
+  
+  a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

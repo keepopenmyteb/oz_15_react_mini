@@ -7,12 +7,20 @@ import About from './pages/About';
 import Movies from './pages/Movies';
 import Contact from './pages/Contact';
 import Series from './pages/Series';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import MovieDetail from './components/MovieDetail'; 
+import { useState } from 'react';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route 
+        path="/" 
+        element={<Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
+      >
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="movies" element={<Movies />} />
@@ -20,6 +28,8 @@ function App() {
         <Route path="contact" element={<Contact />} />
         <Route path="detail/:id" element={<MovieDetail />} /> 
         <Route path="mylist" element={<MyList />} />
+        <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="signup" element={<Signup />} />
       </Route>
     </Routes>
   );

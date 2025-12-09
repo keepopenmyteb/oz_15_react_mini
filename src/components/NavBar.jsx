@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSupabase } from "../supabase"; 
 import './NavBarStyle.scss';
 
-function NavBar({ onSearch }) {
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchText, setSearchText] = useState('');
+function NavBar({ isLoggedIn, setIsLoggedIn, onSearch }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { logout } = useSupabase(); 
 
-  const handleChange = (e) => {  
-    const value = e.target.value;
-    setSearchText(value);
-    onSearch(value); 
+  const handleLogout = async () => {
+    try {
+      await logout(); 
+      setIsLoggedIn(false);
+      setMenuOpen(false);
+      alert("로그아웃 되었습니다");
+    } catch (error) {
+      console.error("로그아웃 실패:", error);
+      alert("로그아웃 중 오류가 발생했습니다.");
+    }
   };
 
   return (
     <div className="navbar">
       <div className="logo">
-        <Link to="/">
-          <h1>NETFLIX</h1>
-        </Link>
+        <Link to="/"><h1>NETFLIX</h1></Link>
       </div>
 
       <div className="menu">
@@ -28,26 +33,32 @@ function NavBar({ onSearch }) {
       </div>
 
       <div className="auth-buttons">
-        <button 
-          className="search-button"
-          onClick={() => setSearchOpen(!searchOpen)}
-        />
-        <Link to="/login" className="auth-button login">로그인</Link>
-        <Link to="/signup" className="auth-button signup">회원가입</Link>
+        {!isLoggedIn && (
+          <>
+            <Link to="/login" className="auth-button login">로그인</Link>
+            <Link to="/signup" className="auth-button signup">회원가입</Link>
+          </>
+        )}
 
-        <div className={`search-box ${searchOpen ? 'active' : ''}`}>
-          <input 
-            type="text" 
-            placeholder="제목을 입력하세요"
-            autoFocus
-            value={searchText}
-            onChange={handleChange}
-          />
-        </div>
+        {isLoggedIn && (
+          <div className="profile-area">
+            <img
+              src="/images/profile.jpg"
+              alt="profile"
+              className="profile-img"
+              onClick={() => setMenuOpen(!menuOpen)}
+            />
+            {menuOpen && (
+              <div className="dropdown">
+                <Link to="/mypage">마이 페이지</Link>
+                <span onClick={handleLogout}>로그아웃</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 export default NavBar;
-
